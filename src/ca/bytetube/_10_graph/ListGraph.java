@@ -12,7 +12,6 @@ public class ListGraph<V,E> implements Graph<V,E> {
         vertices.put(v, new Vertex<>(v));
     }
 
-
     @Override
     public void addEdge(V fromV, V toV) {
         addEdge(fromV, toV, null);
@@ -95,7 +94,6 @@ public class ListGraph<V,E> implements Graph<V,E> {
         }
     }
 
-
     @Override
     public int verticesSize() {
         return vertices.size();
@@ -104,6 +102,81 @@ public class ListGraph<V,E> implements Graph<V,E> {
     @Override
     public int edgesSize() {
         return edges.size();
+    }
+
+    @Override
+    public void bfs(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) return;
+        Set<Vertex<V, E>> visited = new HashSet<>();
+        Queue<Vertex<V,E>> queue = new LinkedList<>();
+        queue.offer(beginVertex);
+        visited.add(beginVertex);
+
+        while(!queue.isEmpty()){
+            Vertex<V, E> poll = queue.poll();
+            System.out.println(poll.value);
+            for(Edge<V,E> outEdge : poll.outEdges){
+                if (visited.contains(outEdge.to))return;
+                queue.offer(outEdge.to);
+                visited.add(outEdge.to);
+            }
+        }
+    }
+
+    public void dfsByRecursion(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) return;
+        Set<Vertex<V,E>> set = new HashSet<>();
+        dfs(beginVertex,set);
+    }
+
+    public void dfs(Vertex<V, E> beginVertex, Set<Vertex<V, E>> set){
+        System.out.println(beginVertex.value);
+        set.add(beginVertex);
+        for (Edge<V,E> edge : beginVertex.outEdges){
+            if(set.contains(edge.to)) continue;
+            dfs(edge.to, set);
+        }
+
+    }
+
+
+    /**
+     * 1.先将起点入栈，并访问（打印），然后加入到已经访问的记录里（set）
+     * 2.然后从它outEdges中选取一条边将这条边的from，to顶点按顺序再次入栈
+     * 3.访问终点to
+     * 4.将终点to加入到已经访问的记录里（set）
+     * 5.break（不去访问outEdges中的其他边，而是访问被选取边的剩余顶点）
+     * 6.弹出栈顶元素
+     * @param begin
+     */
+    @Override
+    public void dfs(V begin) {
+        Vertex<V, E> beginVertex = vertices.get(begin);
+        if (beginVertex == null) return;
+        Stack<Vertex<V,E>> stack = new Stack<>();
+        Set<Vertex<V,E>> visitedVertices = new HashSet<>();
+        //1.先将起点入栈，并访问（打印），然后加入到已经访问的记录里（set）
+        stack.push(beginVertex);
+        System.out.println(beginVertex.value);
+        visitedVertices.add(beginVertex);
+        while (!stack.isEmpty()){
+            //6.弹出栈顶元素
+            Vertex<V,E> vertex = stack.pop();
+            //2.从它outEdges中选取一条边, 将这条边的from，to顶点按顺序再次入栈
+            for (Edge<V,E> edge : vertex.outEdges) {
+                if (visitedVertices.contains(edge.to)) continue;
+                stack.push(edge.from);
+                stack.push(edge.to);
+            //3.访问终点to
+                System.out.println(edge.to.value);
+            //4.将终点to加入到已经访问的记录里（set）
+                visitedVertices.add(edge.to);
+                break;
+            }
+        }
+
     }
 
     public void print() {
@@ -179,6 +252,5 @@ public class ListGraph<V,E> implements Graph<V,E> {
                     '}';
         }
     }
-
 
 }

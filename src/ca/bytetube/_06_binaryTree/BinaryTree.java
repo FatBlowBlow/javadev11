@@ -37,7 +37,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     private void preorderTraversal(Node<E> node) {
-        if (node == null) return;//递归结束的条件
+        if (node == null) return;//递归结束的条件,叶子节点
         System.out.print(node.element + " ");
         preorderTraversal(node.left);
         preorderTraversal(node.right);
