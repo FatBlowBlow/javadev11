@@ -240,8 +240,9 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     private void inorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) return;
+        if (node == null) return;
         inorderTraversal(node.left, visitor);
+        if (visitor.stop) return;
         visitor.stop = visitor.visit(node.element);
         inorderTraversal(node.right, visitor);
     }
@@ -279,9 +280,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
     private void postorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) return;
+        if (node == null) return;
         postorderTraversal(node.left, visitor);
         postorderTraversal(node.right, visitor);
+        if (visitor.stop) return;
         visitor.stop = visitor.visit(node.element);
     }
 

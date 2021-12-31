@@ -1,8 +1,14 @@
 package ca.bytetube._13_greedy;
 
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
+
+/**
+ * 思路：minCost && maxProfit
+ * k:项目的数量
+ * W:能投入的钱
+ *
+ */
 
 public class IPO {
 
