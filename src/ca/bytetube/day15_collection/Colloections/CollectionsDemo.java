@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-
+/**
+ * collections 集合的工具类，对集合进行操作
+ */
 
 public class CollectionsDemo {
 
