@@ -1,6 +1,10 @@
-package ca.bytetube._05_queue;
+package ca.bytetube._00_leetcode._03_queue;
 
 import java.util.Stack;
+
+/**
+ * https://leetcode.com/problems/implement-queue-using-stacks/
+ */
 
 public class _232_ImplementQueueUsingStacks {
 
@@ -34,9 +38,11 @@ public class _232_ImplementQueueUsingStacks {
                 outStack.push(inStack.pop());
             }
         }
-
-        return outStack.pop();
-
+        return outStack.peek();
     }
 
+    public boolean empty() {
+        return inStack.isEmpty() && outStack.isEmpty();
     }
+
+}

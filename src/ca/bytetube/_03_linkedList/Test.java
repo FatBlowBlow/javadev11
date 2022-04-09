@@ -2,13 +2,10 @@ package ca.bytetube._03_linkedList;
 
 
 import ca.bytetube._03_linkedList.circle.CircleLinkedList;
-import ca.bytetube._03_linkedList.circle.SingleCircularLinkedList;
-import ca.bytetube._03_linkedList.single.SingleLinkedList;
 
 public class Test {
     public static void main(String[] args) {
         testList(new CircleLinkedList<>());
-
 
 //        AbstractList<String> linkedList = new LinkedList<>();
 //        linkedList.add("fang");
@@ -51,16 +48,10 @@ public class Test {
         list.remove(2);//[11,66,33,44,77]
         list.remove(list.size() - 1);//[11,66,33,44]
 
-
         Asserts.test(list.indexOf(44) == 3);
         Asserts.test(list.indexOf(99) == List.ELEMENT_NOT_FOUND);
 
-
         System.out.println(list);
-
-
-
-
 
     }
 }

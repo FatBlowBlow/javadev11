@@ -3,13 +3,17 @@ package ca.bytetube._00_leetcode._01_list;
 
 public class _interview_list {
 
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
-        ListNode(int x) {
-            val = x;
-            next = null;
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
         }
     }
 
@@ -30,7 +34,7 @@ public class _interview_list {
      * 3. 1个无环单链表和1个有环单链表是不可能相交的
      */
     public static ListNode getIntersectNode(ListNode head1, ListNode head2){
-        if (head1 == null && head2 == null) return null;
+        if (head1 == null || head2 == null) return null;
         //获取各自的入环节点
         ListNode loop1 = hasCircle(head1);
         ListNode loop2 = hasCircle(head2);
@@ -45,20 +49,21 @@ public class _interview_list {
     }
 
     /**
-     * 1.判断链表是否含环:
+     * 1.判断链表是否含环(快慢指针):
      * 不含环 ---> return null
      * 含环 ---> 找出入环节点
      */
     public static ListNode hasCircle(ListNode head){
+        if (head == null) return null;
         ListNode slow = head.next;
         ListNode fast = head.next.next;
 
         while(slow != fast){
-            if (fast.next == null && fast.next.next == null) return null;//不含环,return null
+            if (fast.next == null || fast.next.next == null) return null;//不含环,return null
             slow = slow.next;
             fast = fast.next.next;
         }
-        //将快指针拉回到开头
+        //将快指针拉回到开头，并只走一步，下一次快慢指针重合时就是入环节点
         fast = head;
         while (slow != fast) {
             slow = slow.next;
@@ -70,8 +75,8 @@ public class _interview_list {
     /**
      * 2个不含环的单链表的相交节点
      */
-    public static ListNode noCircle(ListNode head1,ListNode head2){
-
+    public static ListNode noCircle(ListNode head1, ListNode head2){
+        if (head1 == null || head2 == null) return null;
         //1.先统计2个链表的长度（长度差）
         ListNode cur1 = head1;
         ListNode cur2 = head2;
@@ -116,7 +121,7 @@ public class _interview_list {
      * loop2:list2 入环节点
      */
     public static ListNode twoCircle(ListNode head1, ListNode loop1, ListNode head2,ListNode loop2){
-
+        if (head1 == null || head2 == null) return null;
         ListNode cur1 = null;
         ListNode cur2 = null;
         if (loop1 == loop2) {//I:相交并且共用同一个环 ---> 入环节点相同
@@ -154,6 +159,56 @@ public class _interview_list {
             }
         }
         return null;//II:不相交
+    }
+
+    public static void main(String[] args) {
+        // 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> null
+        //1个不含环的单链表
+        ListNode head1 = new ListNode(1);
+        head1.next = new ListNode(2);
+        head1.next.next = new ListNode(3);
+        head1.next.next.next = new ListNode(4);
+        head1.next.next.next.next = new ListNode(5);
+        head1.next.next.next.next.next = new ListNode(6);
+        head1.next.next.next.next.next.next = new ListNode(7);
+
+        //  0 -> 9 -> 8 -> 6 -> 7 -> null
+        //1个不含环的单链表
+        ListNode head2 = new ListNode(0);
+        head2.next = new ListNode(9);
+        head2.next.next = new ListNode(8);
+        head2.next.next.next = head1.next.next.next.next.next;//8 -> 6
+        //System.out.println(getIntersectNode(head1,head2).val);
+
+        // 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 4....
+        //1个含环的单链表
+        head1 = new ListNode(1);
+        head1.next = new ListNode(2);
+        head1.next.next = new ListNode(3);
+        head1.next.next.next = new ListNode(4);
+        head1.next.next.next.next = new ListNode(5);
+        head1.next.next.next.next.next = new ListNode(6);
+        head1.next.next.next.next.next.next = new ListNode(7);
+        head1.next.next.next.next.next.next.next = head1.next.next.next;//7 -> 4
+
+
+        //  0 -> 9 -> 8 -> 2...
+        //另一个含共同环的单链表
+        head2 = new ListNode(0);
+        head2.next = new ListNode(9);
+        head2.next.next = new ListNode(8);
+        head2.next.next.next = head1.next;//8 -> 2
+        System.out.println(getIntersectNode(head1,head2).val);
+
+
+        //  0 -> 9 -> 8 -> 6 -> 4 -> 5 -> 6...
+        //2个含环的单链表 （不共用一个环）
+        head2 = new ListNode(0);
+        head2.next = new ListNode(9);
+        head2.next.next = new ListNode(8);
+        head2.next.next.next = head1.next.next.next.next.next;//8 -> 6
+        //System.out.println(getIntersectNode(head1,head2).val);
+
     }
 
 }

@@ -24,7 +24,6 @@ public class _206_ReverseLinkedList {
 
         /**
          * 链表的返回值:返回的是头节点
-         * <p>
          * 5,4,3,2,1 --> 1,2,3,4,5
          */
         //recursive

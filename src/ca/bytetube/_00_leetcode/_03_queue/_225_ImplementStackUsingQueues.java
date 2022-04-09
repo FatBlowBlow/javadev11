@@ -1,13 +1,17 @@
-package ca.bytetube._05_queue;
+package ca.bytetube._00_leetcode._03_queue;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class _255_ImplementStackUsingQueues {
+/**
+ * https://leetcode.com/problems/implement-stack-using-queues/
+ */
+public class _225_ImplementStackUsingQueues {
+
     private Queue<Integer> data;
     private Queue<Integer> help;
 
-    public _255_ImplementStackUsingQueues(){
+    public _225_ImplementStackUsingQueues(){
         this.data = new LinkedList<>();
         this.help = new LinkedList<>();
     }
@@ -17,15 +21,13 @@ public class _255_ImplementStackUsingQueues {
     }
 
     public int pop(){
-        //1. 依次弹出data queue中前n-1个元素并装入help queue中
-        while (data.size() > 1){
+        //1.依次弹出data queue中前n-1个元素并装入help queue中
+        while (data.size() > 1){//留最后一个元素
             help.offer(data.poll());
         }
-
         //2.弹出最后一个元素
         int pop = data.poll();
-
-        //3.引用的交换
+        //3.交换help和data的引用
         swap();
         return pop;
     }
@@ -42,9 +44,11 @@ public class _255_ImplementStackUsingQueues {
         //3.引用交换
         swap();
         return peek;
-
     }
 
+    public boolean empty() {
+        return data.isEmpty();
+    }
 
     private void swap(){
         Queue<Integer> temp = help;
