@@ -26,6 +26,10 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         }
     }
 
+    /**
+     * 如果是BST，afterAdd什么也不用做
+     * 如果是AVLTree，调用AVLTree的afterAdd
+     */
     public void afterAdd(Node<E> node){}
 
     //add elements，（BST的元素插入一定是叶节点）
@@ -76,8 +80,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             return comparator.compare(e1, e2);
         }
         return ((Comparable<E>) e1).compareTo(e2);
-
-
     }
 
 
@@ -95,12 +97,13 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             }
 
         }
-
         return null;
-
     }
 
-
+    /**
+     * 如果是BST，afterRemove什么也不用做
+     * 如果是AVLTree，调用AVLTree的afterRemove
+     */
     public void afterRemove(Node<E> node){}
 
     //remove elements
@@ -111,7 +114,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
     public void remove(Node<E> node) {
         if (node == null) return;
         size--;
-
         //1. degree = 2，这个节点的前驱点 and 后驱点的度只能是1 or 0
         //先用前驱点 or 后继点的值overwrite当前节点，再删除前驱点 or 后继点
         if (node.hasTwoChildren()) {
@@ -119,18 +121,14 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             node.element = s.element;//后继点的值overwrite当前节点的值（值覆盖）
             node = s;//删除后继点，把后继点赋予node --> 转化成删除度为1 or 0的点，整个代码中node始终是要被删除的点
         }
-
         Node<E> replacement = node.left != null? node.left : node.right;
-
         //2. degree = 1
         if (replacement != null) {
             replacement.parent = node.parent;//更改replacement parent
-
-            //node.parent = null, node是degree = 1的root节点
+            //node是degree = 1的root节点
             if (node.parent == null) {
                 root = replacement;
             }
-
             //node.parent != null, 更改parent的孩子
             if (node == node.parent.left) {//node是degree = 1且node是之前parent的left
                 node.parent.left = replacement;
@@ -143,7 +141,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
         else if (node.parent == null) {//删到只剩最后一个root节点
             root = null;
             afterRemove(node);
-
         }else {//leaf node
             if (node == node.parent.left) {
                 node.parent.left = null;
@@ -153,7 +150,6 @@ public class BinarySearchTree<E> extends BinaryTree<E> {
             }
             afterRemove(node);
         }
-
     }
 
 

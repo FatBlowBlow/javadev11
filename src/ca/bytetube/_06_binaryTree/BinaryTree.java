@@ -7,9 +7,8 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree<E> implements BinaryTreeInfo {
-    protected int size;
+    protected int size;//protected 子父类可见
     protected Node<E> root;
-
 
     //number of elements
     public int size() {
@@ -32,22 +31,20 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     //树的遍历
     //1. Preorder Traversal，中-->左-->右
     //1.1 递归
-    public void preorderTraversal() {
+    public void preorderTraversal() {//马甲函数
         preorderTraversal(root);
     }
 
     private void preorderTraversal(Node<E> node) {
-        if (node == null) return;//递归结束的条件,叶子节点
+        if (node == null) return;//1.对参数的判断 2.递归结束的条件,叶子节点
         System.out.print(node.element + " ");
         preorderTraversal(node.left);
         preorderTraversal(node.right);
-
     }
 
     //1.2 !!!非递归，用到了stack
     public void preorderTraversalByLoop() {
         preorderTraversalByLoop(root);
-
     }
 
     private void preorderTraversalByLoop(Node<E> node) {//主逻辑
@@ -57,7 +54,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             while (!stack.isEmpty()) {
                 Node pop = stack.pop();
                 System.out.print(pop.element + " ");
-
                 //有右先压右
                 if (pop.right != null) {
                     stack.push(pop.right);
@@ -68,15 +64,13 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                 }
             }
         }
-
     }
 
 
-    //2.Inorder Traversal,左-->中-->右
+    //2.Inorder Traversal,左-->中-->右 / 如果是BST, inorder遍历后是一个升序
     //2.1 递归
     public void inorderTraversal() {
         inorderTraversal(root);
-
     }
 
     private void inorderTraversal(Node<E> node) {
@@ -84,7 +78,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         inorderTraversal(node.left);
         System.out.print(node.element + " ");
         inorderTraversal(node.right);
-
     }
 
     //2.2 非递归，用到了stack
@@ -95,7 +88,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     private void inorderTraversalByLoop(Node<E> node) {
         if (node != null) {
             Stack<Node> stack = new Stack<>();
-            while (!stack.isEmpty() || node != null) {
+            while (!stack.isEmpty() || node != null) {//node != null为了第一个节点顺利入站
                 if (node != null) {
                     stack.push(node);
                     node = node.left;//把左树全部压入
@@ -104,10 +97,8 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                     System.out.print(pop.element + " ");
                     node = pop.right;
                 }
-
             }
         }
-
     }
 
 
@@ -115,7 +106,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     //3.1递归
     public void postorderTraversal() {
         postorderTraversal(root);
-
     }
 
     private void postorderTraversal(Node<E> node) {
@@ -132,58 +122,55 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
     private void postorderTraversalByLoop(Node<E> node) {
         if (node != null) {
-            Stack<Node> stack = new Stack<>();
             Stack<Node> stack1 = new Stack<>();
-            stack.push(node);
-            while (!stack.isEmpty()) {//中-->右-->左
-                node = stack.pop();
-                stack1.push(node);
+            Stack<Node> stack2 = new Stack<>();
+            stack1.push(node);
+            while (!stack1.isEmpty()) {//中-->右-->左
+                node = stack1.pop();
+                stack2.push(node);
                 //有左先压左
                 if (node.left != null) {
-                    stack.push(node.left);
+                    stack1.push(node.left);
                 }
                 //有右再压右
                 if (node.right != null) {
-                    stack.push(node.right);
+                    stack1.push(node.right);
                 }
             }
-
             //reverse preorder
-            while (!stack1.isEmpty()) {
-                System.out.print(stack1.pop().element + " ");
-
+            while (!stack2.isEmpty()) {
+                System.out.print(stack2.pop().element + " ");
             }
-
         }
-
-
     }
 
 
     //4.Level Order Traversal
     public void levelOrderTraversal() {
         if (root == null) return;
-
         Queue<Node> queue = new LinkedList<>();
         queue.offer(root);
         while (!queue.isEmpty()) {
-            Node node = queue.poll();
-            System.out.print(node.element + " ");
-            if (node.left != null) {
-                queue.offer(node.left);
+            Node poll = queue.poll();
+            System.out.print(poll.element + " ");
+            if (poll.left != null) {
+                queue.offer(poll.left);
             }
-
-            if (node.right != null) {
-                queue.offer(node.right);
+            if (poll.right != null) {
+                queue.offer(poll.right);
             }
-
         }
-
     }
 
 
-    //传入visitor访问器,visitor pattern
-    public static abstract class Visitor<E> {
+    /**
+     * 传入visitor访问器, visitor pattern
+     *
+     * 可以对遍历的数据进行一系列逻辑操作，
+     * 1. 权限开放，使用者制定遍历规则
+     * 2. 使访问器具备一定可控性，不是野马一般的从头跑到尾
+     */
+    public static abstract class Visitor<E> {//接口是public，但不能有属性只能是常量，所以定义抽象类
         boolean stop;
         public abstract boolean visit(E element);//boolean使访问器具备一定可控性
     }
@@ -193,18 +180,16 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     public void preorderTraversal(Visitor<E> visitor) {//传入访问器
         if (visitor == null) return;
         preorderTraversal(root, visitor);
-
     }
 
     private void preorderTraversal(Node<E> node, Visitor<E> visitor) {
-        if (node == null || visitor.stop) return;
+        if (node == null || visitor.stop) return;//visitor.stop = true 停掉
 //        boolean stop = visitor.visit(node.element);
 //        visitor.stop = stop;
         visitor.stop = visitor.visit(node.element);
         preorderTraversal(node.left, visitor);
         preorderTraversal(node.right, visitor);
     }
-
 
 
     //1.2 non-recursive
@@ -267,7 +252,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                     node = pop.right;
                 }
             }
-
         }
     }
 
@@ -308,7 +292,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                     stack.push(node.right);
                 }
             }
-
             while (!stack1.isEmpty() && !visitor.stop) {
                 visitor.stop = visitor.visit(stack1.pop().element);
             }
@@ -345,7 +328,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     private int height(Node<E> node) {
         if (node == null) return 0;
         return 1 + Math.max(height(node.left), height(node.right));
-
     }
 
     //non-recursive --> level order
@@ -355,27 +337,22 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         Queue<Node> queue = new LinkedList<>();
         queue.offer(root);
         int height = 0;
-        int levelSize = 1;
+        int levelSize = 1;//存储每一层的元素个数
 
         while (!queue.isEmpty()) {
             Node node = queue.poll();
             levelSize--;
-
             if (node.left != null) {
                 queue.offer(node.left);
             }
-
             if (node.right != null) {
                 queue.offer(node.right);
             }
-
             if (levelSize == 0) {//即将访问树的下一层
                 levelSize = queue.size();
                 height++;
             }
-
         }
-
         return height;
     }
 
@@ -387,19 +364,16 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
     private boolean isComplete(Node<E> root) {
         if (root == null) return false;
-
         Queue<Node> queue = new LinkedList<>();
         queue.offer(root);
-
         boolean leaf = false;
+
         while (!queue.isEmpty()) {
             Node node = queue.poll();
-
-            if (leaf && !node.isLeaf()) {//叶节点true，但不为叶节点
+            if (leaf && !node.isLeaf()) {//叶节点置为true(之后所有的节点都必须是leaf节点)，但不为叶节点
                 return false;
             }
-
-            if (node.hasTwoChildren()) {//1.
+            if (node.hasTwoChildren()) {//1.node.left != null && node.right != null,
                 queue.offer(node.left);
                 queue.offer(node.right);
             }else if (node.left == null && node.right != null) {//2.
@@ -407,11 +381,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             }else if (node.left != null && node.right == null) {//3.
                 queue.offer(node.left);
                 leaf = true;
-            }else {//4.之后所有的节点都必须是leaf节点
+            }else {//4.node.left == null && node.right == null, 之后所有的节点都必须是leaf节点
                 leaf = true;
             }
         }
-
         return true;
     }
 
@@ -458,7 +431,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
 
         //3. node.right == null && node.parent == null --> 没有右子树的root节点
         return node.parent;
-
     }
 
 
@@ -518,7 +490,4 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }
 
     }
-
-
-
 }

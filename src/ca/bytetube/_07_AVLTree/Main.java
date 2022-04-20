@@ -13,7 +13,6 @@ public class Main {
     }
 
     private static class PersonComparator implements Comparator<Person> {
-
         @Override
         public int compare(Person p1, Person p2) {
             return (int)(p1.getSalary() - p2.getSalary());
@@ -31,8 +30,11 @@ public class Main {
 //			BinaryTrees.println(avl);
 //			System.out.println("---------------------------------------");
         }
-
         BinaryTrees.println(avl);
+
+//        avl.remove(1);
+//        BinaryTrees.println(avl);
+//        System.out.println("----------------------------");
     }
 
 

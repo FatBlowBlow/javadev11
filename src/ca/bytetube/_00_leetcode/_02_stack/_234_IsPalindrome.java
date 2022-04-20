@@ -56,7 +56,7 @@ public class _234_IsPalindrome {
         ListNode slow = head.next;
         ListNode fast = head;
         //通过快慢指针的走法，slow一定走到中间
-        if (fast.next != null && fast.next.next != null) {
+        while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }

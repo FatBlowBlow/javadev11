@@ -3,6 +3,9 @@ package ca.bytetube._00_leetcode._04_tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * https://leetcode.com/problems/invert-binary-tree/
+ */
 public class _226_Invert_Binary_Tree {
 
     //Preorder
@@ -40,7 +43,7 @@ public class _226_Invert_Binary_Tree {
         root.left = root.right;
         root.right = temp;
 
-        invertTree3(root.left);//先invert左树，现在的root right = 之前的root left
+        invertTree3(root.left);//因为先invert左树，所以现在的root right = 之前的root left
         return root;
     }
 
@@ -60,11 +63,9 @@ public class _226_Invert_Binary_Tree {
             if (node.left != null) {
                 queue.offer(node.left);
             }
-
             if (node.right != null) {
                 queue.offer(node.right);
             }
-
         }
         return root;
     }

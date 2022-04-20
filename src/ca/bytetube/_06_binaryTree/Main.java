@@ -11,7 +11,6 @@ public class Main {
     }
 
     private static class PersonComparator implements Comparator<Person> {
-
         @Override
         public int compare(Person p1, Person p2) {
             return (int)(p1.getSalary() - p2.getSalary());
@@ -24,19 +23,28 @@ public class Main {
         BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>();
         for (int i = 0; i < arr.length; i++) {
             binarySearchTree.add(arr[i]);
+//            BinaryTrees.println(binarySearchTree);
+//            System.out.println("=============================================");
         }
+//        BinaryTrees.println(binarySearchTree);
+//        binarySearchTree.levelOrderTraversal();
+
+//        System.out.println(binarySearchTree.isComplete());
+
+//        BinaryTree.Node<Integer> node = binarySearchTree.getNode(4);
+//        System.out.println(binarySearchTree.successor(node));
 
         //树型结构文本化
         String str = BinaryTrees.printString(binarySearchTree);
         str += "\n";
-        Files.writeToFile("/Users/phoenixgu/Desktop/text.txt",str,true);
+        Files.writeToFile("/Users/phoenixgu/Desktop/test.rtf ",str,true);
         BinaryTrees.println(binarySearchTree);
 
 //        System.out.println("=============================================");
-//        binarySearchTree.remove(3);
+//        binarySearchTree.remove(7);
 //        BinaryTrees.println(binarySearchTree);
+//        System.out.println(binarySearchTree.contains(7));
 
-//        binarySearchTree.levelOrderTraversal();
 
 //        BinaryTrees.println(binarySearchTree, BinaryTrees.PrintStyle.INORDER);
     }
@@ -48,7 +56,6 @@ public class Main {
         for (Person p : ps) {
             binarySearchTree.add(p);
         }
-
         BinaryTrees.println(binarySearchTree);
     }
 
@@ -60,7 +67,6 @@ public class Main {
         for (Person p : ps) {
             binarySearchTree.add(p);
         }
-
         BinaryTrees.println(binarySearchTree);
     }
 
@@ -72,16 +78,15 @@ public class Main {
         for (int i = 0; i < arr.length; i++) {
             binarySearchTree.add(arr[i]);
         }
-
         BinaryTrees.println(binarySearchTree);
-        binarySearchTree.preorderTraversal(new BinaryTree.Visitor<Integer>() {
+        binarySearchTree.preorderTraversal(new BinaryTree.Visitor<Integer>() {//创建匿名内部类
             @Override
             public boolean visit(Integer element) {
                 System.out.print(element + " ");
-                return element == 2? true : false;
+                //System.out.print((element*10+1) + " ");//可以对遍历的数据进行处理
+                //return false;
+                return element == 9? true : false;//使访问器具备一定可控性，不是野马一般的从头跑到尾
             }
         });
-
     }
-
 }

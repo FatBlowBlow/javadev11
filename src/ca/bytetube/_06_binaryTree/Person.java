@@ -6,7 +6,6 @@ public class Person implements Comparable<Person> {//实现comparable接口
     private String name;
 
 
-
 //    public Person(int age) {
 //        this.age = age;
 //    }

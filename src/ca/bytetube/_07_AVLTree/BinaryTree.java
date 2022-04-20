@@ -11,6 +11,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     protected int size;
     protected Node<E> root;
 
+    //为了后续创建AVLNode
     protected  Node<E> createNode(E element, Node<E> parent) {
         return new Node<> (element, parent);
     }
@@ -158,10 +159,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
                 System.out.print(stack1.pop().element + " ");
 
             }
-
         }
-
-
     }
 
 
@@ -181,9 +179,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             if (node.right != null) {
                 queue.offer(node.right);
             }
-
         }
-
     }
 
 
