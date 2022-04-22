@@ -15,11 +15,9 @@ public abstract class AbstractHeap<E> implements Heap<E> {
     }
 
 
-
     public int compare(E e1, E e2){
         return comparator != null ? comparator.compare(e1,e2) : ((Comparable<E>)e1).compareTo(e2);
     }
-
 
 
     @Override

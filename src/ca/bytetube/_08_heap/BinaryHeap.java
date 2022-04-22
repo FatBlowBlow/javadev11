@@ -35,8 +35,8 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
     }
 
     public BinaryHeap() {//无参
-        this.elements = (E[]) new Object[DEFAULT_CAPACITY];//创建了一个default长度的数组
-//        this(null,null);
+        //this.elements = (E[]) new Object[DEFAULT_CAPACITY];//创建了一个default长度的数组
+        this(null,null);
     }
 
 
@@ -100,16 +100,16 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
     @Override
     public E replace(E element) {
-        //1.简单粗暴方法
+        //1.简单粗暴方法, 一次siftDown,一次siftUp，2*O(logn)
 //        E root = remove();
 //        add(element);
 //        return root;
 
-        //2.优化
+        //2.优化 --> O(logn)
         E root = elements[0];//记录要删除的头节点
         elements[0] = element;//新添加的节点放到头节点上
         siftDown(0);//从新添加节点的位置开始siftDown，调整为maximum heap
-        return null;
+        return root;
     }
 
     private void siftUp(int index) {
@@ -211,13 +211,13 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
 
     }
 
-    //堆化。把一个无序整数数组变成一个maximum heap
+    //堆化 ---> 把一个无序整数数组变成一个maximum heap
     private void heapify(){
 
-        //1.top --> down， sift up
-        for (int i = 0; i < size; i++) {
-            siftUp(i);
-        }
+//        //1.top --> down， sift up 用第二种方式,时间法度小
+//        for (int i = 1; i < size; i++) {
+//            siftUp(i);
+//        }
 
         //2.bottom --> up， sift down, 从非叶子节点开始
         for (int i = (size >> 1) - 1; i >= 0; i--) {

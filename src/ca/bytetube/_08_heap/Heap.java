@@ -7,7 +7,6 @@ public interface Heap<E> {
     public void add(E element);
     public E get();//get the top element of the heap
     public E remove();//delete the top element of the heap
-    public E replace(E element);
-    //insert a new element while deleting the top element of the heap
+    public E replace(E element);//insert a new element while deleting the top element of the heap
 
 }

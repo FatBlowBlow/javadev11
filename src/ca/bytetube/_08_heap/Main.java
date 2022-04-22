@@ -8,8 +8,8 @@ import java.util.PriorityQueue;
 public class Main {
 
     public static void main(String[] args) {
-//        topK(new Integer[]{88,44,53,41,6,70,18,85,98,81,23,36,43,37},5);
-        test4();
+        topK1(new Integer[]{88,44,53,41,6,70,18,85,98,81,23,36,43,37},5);
+        //test3();
     }
 
     private static void test1() {
@@ -24,9 +24,9 @@ public class Main {
         heap.add(65);
 
         BinaryTrees.println(heap);
-        System.out.println("======================================");
-        heap.replace(12);
-        BinaryTrees.println(heap);
+//        System.out.println("======================================");
+//        heap.replace(12);
+//        BinaryTrees.println(heap);
 
 
     }
@@ -44,13 +44,11 @@ public class Main {
             public int compare(Integer o1, Integer o2) {
                 return o2 - o1;
             }
-
-
         },data);
         BinaryTrees.println(heap);
     }
 
-    //前k大的数
+    //前k大的数 ---> miniHeap
     public static void topK(Integer[] data, int k){
         BinaryHeap<Integer> heap = new BinaryHeap<>(new Comparator<Integer>() {
             @Override
@@ -66,10 +64,10 @@ public class Main {
                 heap.replace(data[i]);
             }
         }
-
+        BinaryTrees.println(heap);
     }
 
-    //前k小的数
+    //前k小的数 ---> maxHeap
     public static void topK1(Integer[] data, int k){
         BinaryHeap<Integer> heap = new BinaryHeap<>();
         for (int i = 0 ; i < data.length; i++ ){
@@ -79,9 +77,10 @@ public class Main {
                 heap.replace(data[i]);
             }
         }
-
+        BinaryTrees.println(heap);
     }
 
+    //priorityQueue 优先级队列
     public static void test4(){
         Integer[] data = {88, 44, 53, 41, 70};
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(new Comparator<Integer>() {
@@ -91,13 +90,11 @@ public class Main {
             }
         });
 
-        for(Integer d:data){
+        for(Integer d : data){
             priorityQueue.add(d);
         }
 
-
         System.out.println(priorityQueue);
-
 
     }
 
