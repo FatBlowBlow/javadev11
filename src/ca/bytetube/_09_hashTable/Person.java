@@ -65,13 +65,11 @@ public class Person extends Object {//Java中任何一个类都是Object的子�
         Person person = (Person) obj;//重写父类，需要强转
         return person.age == this.age && person.height == this.height &&
                 (person.name == null? name == null : person.name.equals(this.name));
-
     }
 
 
-
     @Override
-    public int hashCode(){//仿照String类型， 重写自定义Person类的hashcode
+    public int hashCode(){//仿照String类型,重写自定义Person类的hashcode
 //        private int age;
 //        private float height;
 //        private String name;
@@ -88,10 +86,10 @@ public class Person extends Object {//Java中任何一个类都是Object的子�
         Person p1 = new Person(50,16.7f, "jack");
         Person p2 = new Person(45,17.8f, "pony");
         Person p3 = new Person(50,16.7f, "jack");
-        System.out.println(p1.hashCode());
+        System.out.println(p1.hashCode());//默认的hashCode方法,Object类的hashCode方法,与地址有关
         System.out.println(p2.hashCode());
         System.out.println(p3.hashCode());
-//        System.out.println(p1);
+//        System.out.println(p1);//p1和p3，地址不同
 //        System.out.println(p3);
 
 //        HashMap<Object, Object> hashMap = new HashMap<>();

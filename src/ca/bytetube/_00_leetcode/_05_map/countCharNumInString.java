@@ -4,7 +4,7 @@ import java.util.*;
 
 public class countCharNumInString {
 
-    //hashmap
+    //hashMap
     public static Map<Character,Integer> countCharNumInString(String str){
         if(str == null) throw new NullPointerException("string can not be null");
 
@@ -23,26 +23,6 @@ public class countCharNumInString {
 
 
     //list
-//    public static List countCharNumInString1(String str){
-//        if(str == null) throw new NullPointerException("string can not be null");
-//
-//        List<Integer> list = new LinkedList<>();
-//        for (int i = 0; i < str.length(); i++) {
-//            int index = Integer.valueOf(str.charAt(i));
-//            if(list.get(index) == null) list.add(index,1);
-//            list.add(index,list.get(index)+1);
-//        }
-//
-//        List<String> result = new LinkedList<>();
-//        for (int i = 0; i < list.size(); i++) {
-//            if(list.get(i) != null){
-//                String s = Character.toString((char)i) + list.get(i);
-//                result.add(s);
-//            }
-//        }
-//        return result;
-//    }
-
     public static List<ListEntry> countCharNum (String string){
         ArrayList<ListEntry> arrayList = new ArrayList<>();
         char[] chars = string.toCharArray();
@@ -60,7 +40,7 @@ public class countCharNumInString {
         return arrayList;
     }
 
-    private static class ListEntry{
+    private static class ListEntry{//封装子结构
         Character key;
         Integer value;
 
@@ -80,9 +60,13 @@ public class countCharNumInString {
             this.value = value;
         }
 
-
+        /**
+         * equals()一定要重写,为了contains()比较做判断,明确contains()的比较方式
+         *
+         * 下边重写的equals,是以key值作为contains的比较标准.即key值相同 arrayList就contains entry
+         */
         @Override
-        public boolean equals(Object o) {//一定要重写，为了contains比较
+        public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ListEntry listEntry = (ListEntry) o;
