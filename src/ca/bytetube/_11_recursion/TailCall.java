@@ -38,7 +38,7 @@ public class TailCall {
 
     public static int factorial2(int n){
         if (n <= 1) return n;
-        return n * factorial(n - 1);
+        return n * factorial2(n - 1);
     }
 
     //把以上code改为tail recursion

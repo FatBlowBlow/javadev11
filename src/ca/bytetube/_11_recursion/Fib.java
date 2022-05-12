@@ -7,33 +7,38 @@ package ca.bytetube._11_recursion;
 
 public class Fib {
 
-    public int fib1(int n) {
-        if (n  <= 1) return n;
-        return   fib1(n - 1) + fib1(n - 2);
+    public static void main(String[] args) {
+        System.out.println(fib3(5));;
     }
 
-    public int fib2(int n){//5
-        if (n  <= 1) return n;
+
+    public static int fib1(int n) {
+        if (n <= 1) return n;
+        return fib1(n - 1) + fib1(n - 2);
+    }
+
+
+    public static int fib2(int n){//5
+        if (n <= 1) return n;
         int[] arr = new int[n + 1];
         arr[1] = 1;
         arr[2] = 1;
         return fib2(n,arr);
     }
 
-    public int fib2(int n,int[] arr){
-
-        if (arr[n] == 0) {
+    private static int fib2(int n, int[] arr){
+        if (arr[n] == 0) {//说明第n项 没有求过
             arr[n] = fib2(n-1, arr) + fib2(n-2,arr);
             //arr[5] = fib(4,arr)+ fib(3,arr); = 3+2 = 5
             //arr[4] = fib(3,arr)+ fib(2,arr); 2+ 1 = 3
             //arr[3] = fib(2,arr)+ fib(1,arr);//1+ 1 = 2
             //arr[2] //1
-
         }
         return arr[n];
     }
 
-    public int fib3(int n) {
+    //non recursion
+    public static int fib3(int n) {
         if (n <= 1) return n;
         int[] arr = new int[n + 1];
         arr[1] = arr[2] = 1;
@@ -41,7 +46,6 @@ public class Fib {
             arr[i] = arr[i - 1] + arr[i - 2];
         }
         return arr[n];
-
     }
 
 
@@ -52,7 +56,7 @@ public class Fib {
      *5 % 2 = 1 0b101 & 0b001 = 001
      *6 % 2 = 0 0b110 & 0b001 = 000
      */
-    public int fib4(int n) {
+    public static int fib4(int n) {
         if (n <= 1) return n;
         int[] arr = new int[2];
         arr[0] = arr[1] = 1;
@@ -63,9 +67,8 @@ public class Fib {
     }
 
 
-
-
-    public int fib5(int n) {
+    //%2, %运算 ---> &1, &运算
+    public static int fib5(int n) {
         if (n <= 1) return n;
         int[] arr = new int[2];
         arr[0] = arr[1] = 1;
@@ -73,10 +76,10 @@ public class Fib {
             arr[i & 1] = arr[(i - 1) & 1] + arr[(i - 2) & 1];
         }
         return arr[n & 1];
-
     }
 
-    public int fib6(int n) {
+    //双指针
+    public static int fib6(int n) {
         //fib(n) = fib(n-1) + fib(n-2)
         if (n <= 1) return n;
 
@@ -92,12 +95,13 @@ public class Fib {
 
 
 
+    //tail recursion
     public int fib7(int n) {
         if(n == 0) return 0;
         return fib(n, 0, 1);
     }
 
-    public int fib(int n, int first, int second){
+    private int fib(int n, int first, int second){
         if (n <= 1) return second ;
         return fib(n - 1, second, first + second);
     }

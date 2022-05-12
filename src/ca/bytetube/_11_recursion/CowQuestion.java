@@ -3,8 +3,10 @@ package ca.bytetube._11_recursion;
 public class CowQuestion {
 
     public static void main(String[] args) {
-        System.out.println(cowQuestion4(7));
+        System.out.println(cowQuestion6(5));
     }
+
+
     public static int cowQuestion1 (int n){
         if (n < 1) return 0;
         if (n <= 4) return n;
@@ -27,6 +29,7 @@ public class CowQuestion {
         return arr[n];
     }
 
+    //dp
     public static int cowQuestion3(int n){
         if (n < 1) return 0;
         int[] arr = new int[n + 1];
@@ -42,6 +45,18 @@ public class CowQuestion {
     public static int cowQuestion4(int n) {
         if (n < 1) return 0;
         int[] arr = new int[n + 1];
+        for (int i = 1; i <= 4 ; i++) {
+            arr[i] = i;
+        }
+        for (int i = 5; i <= n ; i++) {
+            arr[i] = arr[i - 1] + arr[i - 3];
+        }
+        return arr[n];
+    }
+
+    public static int cowQuestion5(int n) {
+        if (n < 1) return 0;
+        int[] arr = new int[n + 1];
         for (int i = 1; i < n + 1 ; i++) {
             if (i <= 4) {
                 arr[i] = i;
@@ -51,4 +66,19 @@ public class CowQuestion {
         }
         return arr[n];
     }
+
+    public static int cowQuestion6(int n){
+        if (n <= 4) return n;
+        int first = 2;
+        int second = 3;
+        int third = 4;
+        for (int i = 5; i < n + 1; i++) {
+            int temp = first + third;
+            first = second;
+            second = third;
+            third = temp;
+        }
+        return third;
+    }
+
 }
