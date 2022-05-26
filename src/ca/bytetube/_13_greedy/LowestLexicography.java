@@ -5,11 +5,12 @@ import java.util.Comparator;
 
 public class LowestLexicography {
     public static void main(String[] args) {
-        String[] strings = {"abc", "ab", "bc"};
-        Arrays.sort(strings);
-        for (int i = 0; i < strings.length; i++) {
-            System.out.println(strings[i]);
-        }
+//        String[] strings = {"abc", "ab", "bc"};
+//        Arrays.sort(strings);
+//        for (int i = 0; i < strings.length; i++) {
+//            System.out.println(strings[i]);
+//        }
+        System.out.println(lowestLexicography(new String[]{"b", "ba"}));
     }
 
     public static String lowestLexicography(String[] strs){
@@ -21,7 +22,7 @@ public class LowestLexicography {
             }
         });
 
-        String res = " ";
+        String res = "";
         for (int i = 0; i < strs.length; i++) {
             res += strs[i];
         }

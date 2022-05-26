@@ -17,7 +17,8 @@ public class ArrangeMeeting {
     }
 
 
-    public static int arrangeMeeting(Meeting[] meetings, int current){//current可以开启下一个会议的时间点
+    public static int arrangeMeeting(int[] starts, int[] ends, int current){//current可以开启下一个会议的时间点
+        Meeting[] meetings = meetingsCreate(starts, ends);
         Arrays.sort(meetings, new Comparator<Meeting>() {
             @Override
             public int compare(Meeting m1, Meeting m2) {
@@ -33,5 +34,15 @@ public class ArrangeMeeting {
             }
         }
         return count;
+    }
+
+
+
+    private static Meeting[] meetingsCreate(int[] starts, int[] ends){
+        Meeting[] meetings = new Meeting[starts.length];
+        for (int i = 0; i < meetings.length ; i++) {
+            meetings[i] = new Meeting(starts[i], ends[i]);
+        }
+        return meetings;
     }
 }

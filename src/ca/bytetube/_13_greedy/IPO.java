@@ -7,7 +7,6 @@ import java.util.PriorityQueue;
  * 思路：minCost && maxProfit
  * k:项目的数量
  * W:能投入的钱
- *
  */
 
 public class IPO {
@@ -48,7 +47,7 @@ public class IPO {
 
         for (int i = 0; i < k ; i++) {
             while(!minCostQ.isEmpty() && minCostQ.peek().cost <= W){
-                maxProfitQ.add(minCostQ.poll());
+                maxProfitQ.add(minCostQ.poll());//把能做的项目都加进来
             }
 
             if(maxProfitQ.isEmpty()) return W;

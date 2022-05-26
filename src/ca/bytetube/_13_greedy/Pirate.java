@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Pirate {
     public static void main(String[] args) {
-        countGoods(30, new int[]{3, 5, 4, 10, 7, 14, 2, 11});
+        System.out.println(countGoods(30, new int[]{3, 5, 4, 10, 7, 14, 2, 11}));;
     }
 
 
@@ -18,9 +18,10 @@ public class Pirate {
             if (newWeight <= capacity) {
                 weight = newWeight;
                 count++;
+                System.out.println(weights[i]);
             }
         }
-
-        return 0;
+        System.out.println("---------------");
+        return count;
     }
 }

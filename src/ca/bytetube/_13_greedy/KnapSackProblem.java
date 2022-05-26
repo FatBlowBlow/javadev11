@@ -11,7 +11,7 @@ public class KnapSackProblem {
                 new Article(40, 35),new Article(10, 40),
                 new Article(60, 30),new Article(50, 50),
                 new Article(25, 30)};
-        select(articles, new Comparator<Article>() {
+        select(articles, new Comparator<Article>() {//value oriented:选大的
             @Override
             public int compare(Article a1, Article a2) {
                 return a2.value - a1.value;//降序
@@ -19,7 +19,7 @@ public class KnapSackProblem {
         });
         System.out.println("=========================================");
 
-       select(articles, new Comparator<Article>() {
+       select(articles, new Comparator<Article>() {//weight oriented:选轻的
            @Override
            public int compare(Article a1, Article a2) {
                return a1.weight - a2.weight;//升序
@@ -28,7 +28,7 @@ public class KnapSackProblem {
 
         System.out.println("=========================================");
 
-        select(articles, new Comparator<Article>() {
+        select(articles, new Comparator<Article>() {//价值密度oriented:选大的
             @Override
             public int compare(Article a1, Article a2) {
                 return Double.compare(a2.density, a1.density);
