@@ -3,14 +3,13 @@ package ca.bytetube._14_divide;
 public class MaxSubArray {
     public int maxSubArray(int[] nums){
         if (nums == null || nums.length == 0) return 0;
-        maxSubArray(nums, 0, nums.length);
+        maxSubArray(nums, 0, nums.length);//区间左闭右开
 
         return 0;
 
     }
 
     public int maxSubArray(int[] nums, int begin, int end){
-
         if (end - begin < 2) return nums[begin];
         int mid = (begin + end) >> 1;
 
@@ -35,11 +34,10 @@ public class MaxSubArray {
             rightSum += nums[i];
             rMax = Math.max(rMax,rightSum);
         }
-
         return Math.max(lMax + rMax,max);
     }
 
-
+    //brute force --> O(n^3)
     public int maxSubArray1(int[] nums){
         int max = Integer.MIN_VALUE;
         for (int begin = 0; begin < nums.length; begin++){
