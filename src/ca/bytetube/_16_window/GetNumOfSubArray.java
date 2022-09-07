@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class GetNumOfSubArray {
 
     public static void main (String[] args) {
-        int[] arr = {5,6};
+        int[] arr = {5,6,7};
         System.out.println(getNumOfSubArray(arr, 2));
     }
 
@@ -38,7 +38,7 @@ public class GetNumOfSubArray {
             //判断最小值的结构下标是否过期
             if (qMin.peekFirst() == L) qMin.pollFirst();
             //判断最大值的结构下标是否过期
-            if (qMax.peekFirst() == R) qMax.pollFirst();
+            if (qMax.peekFirst() == L) qMax.pollFirst();
 
             res += R - L;
 

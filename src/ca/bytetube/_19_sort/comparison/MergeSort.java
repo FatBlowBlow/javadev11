@@ -29,8 +29,8 @@ public class MergeSort {
     public static void merge(int[] arr, int l, int m, int r) {
         int[] help = new int[r - l + 1];//辅助数组，装每一回合中merge后的结果
         int i = 0;//help数组中的index
-        int p1 = l;
-        int p2 = m + 1;
+        int p1 = l;//leftStart index
+        int p2 = m + 1;//rightStart index
 
         while (p1 <= m && p2 <= r) help[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
 

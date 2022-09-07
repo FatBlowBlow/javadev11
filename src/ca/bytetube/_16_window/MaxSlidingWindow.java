@@ -9,10 +9,26 @@ import java.util.LinkedList;
 
 public class MaxSlidingWindow {
     public static void main(String[] args) {
-        int[] res = maxSlidingWindow2(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3);
+        int[] res = maxSlidingWindow1(new int[]{1, 3, -1, -3, 5, 3, 6, 7}, 3);
         for (int nums : res) {
             System.out.print(nums + " ");
         }
+    }
+
+    //dp --> dp[i]: 以nums[i]为起点,长度为k的数组最大值
+    public static int[] maxSlidingWindow1(int[] nums, int k){
+        if(nums == null || nums.length == 0 || k < 1) return null;
+        if (k == 1) return nums;
+        int[] dp = new int[nums.length - (k - 1)];
+        dp[0] = nums[0];
+        for (int i = 1; i < k ; i++) {
+            dp[0] = Math.max(dp[0], nums[i]);
+        }
+        for (int j = 0; j < nums.length - k ; j++) {
+            if (dp[j] < nums[j + k]) dp[j + 1] = nums[j + k];
+            else dp[j + 1] = dp[j];
+        }
+        return dp;
     }
 
     //windows
@@ -38,27 +54,6 @@ public class MaxSlidingWindow {
         }
         return res;
     }
-
-    //dp --> dp[i]: 以nums[i]为begin,长度为k的数组最大值
-    public static int[] maxSlidingWindow1(int[] nums, int k){
-        if(nums == null || nums.length == 0 || k < 1) return null;
-        if (k == 1) return nums;
-        int[] dp = new int[nums.length - (k - 1)];
-        for (int i = 0; i < nums.length - k ; i++) {
-                int max = nums[0];
-                for (int j = 0; j < k; j++) {
-                    max = Math.max(max,nums[j]);
-                }
-                dp[0] = max;
-                if (dp[i] < nums[i + k]) {
-                    dp[i + 1] = nums[i + k];
-                }else {
-                    dp[i + 1] = dp[i];
-                }
-        }
-        return dp;
-    }
-
 
     //brute force
     public static int[] maxSlidingWindow(int[] nums, int k){
