@@ -41,14 +41,15 @@ public class SubClass extends SuperClass {
     }
 
     public static void main(String[] args) {
-//        SubClass subClass = new SubClass();
+        SubClass subClass = new SubClass();
+        System.out.println(subClass.num);//50
 //        subClass.show1();
 //        subClass.setNum(100);//调用setNum方法时，100 --> 实际参数
-//        System.out.println(subClass.num);//50
+//        System.out.println(subClass.num);
 //        subClass.show();//subClass show
 
-//        SuperClass sb = new SubClass();
-//        System.out.println(sb.num);//5
+        SuperClass sb = new SubClass();
+        System.out.println(sb.num);//5
 //        sb.show();//subClass show
 
         //no answer
