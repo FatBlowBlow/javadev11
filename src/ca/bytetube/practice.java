@@ -1,16 +1,11 @@
 package ca.bytetube;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import sun.java2d.pipe.SpanShapeRenderer;
 
-public class practice {
-    public static void main(String[] args) {
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-
-
-    }
-
+public abstract class practice {
 
 
 
