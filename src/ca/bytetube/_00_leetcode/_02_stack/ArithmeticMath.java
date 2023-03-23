@@ -8,49 +8,52 @@ import java.util.Stack;
  */
 public class ArithmeticMath {
     public static void main(String[] args){
-        String s = "(1+2)*3-(3/1)";
+        String s = "1*3-(1+4/2)";
 //        System.out.println("value :" + s);
 //        System.out.println("value :" + s.trim());//删除头尾空白符的字符串.
         System.out.println(arithmeticMath(s));
 
     }
 
-   public static int arithmeticMath(String s){
-        //Java中的trim()函数去除了字符串前后两端的所有包括空格、换行、回车.
-        s = s.replace(" ", "").trim();
-        Stack<Integer> numStack = new Stack<>();
-        Stack<Character> operatorStack = new Stack<>();
-        char[] chars = s.toCharArray();
+    public static int arithmeticMath(String str){
+        Stack<Integer> numstack = new Stack<>();
+        Stack<Character> operstack = new Stack<>();
+        char[] chars = str.toCharArray();
 
-        for (char c : chars) {
-           if (c == '+' || c == '-' || c == '*' ||c == '/') {
-               if (!operatorStack.isEmpty() && operatorStack.peek() != '(') {
-                   calculate(numStack, operatorStack);
-               }
-               operatorStack.push(c);
-           }else if (c == '('){
-               operatorStack.push(c);
-           }else if (c == ')'){
-               calculate(numStack, operatorStack);
-               operatorStack.pop();//把左括号去掉
-           }else{
-               numStack.push(Character.getNumericValue(c));
-           }
+        for (char c : chars){
+            if (isOperator(c)){
+                if (!operstack.isEmpty() && operstack.peek() != '(') {
+                    if (c == '+' || c == '-') numstack.push(calculate(numstack, operstack));
+                }
+                operstack.push(c);
+            }else if ('(' == c) {
+                operstack.push(c);
+            }else if (')' == c){
+                while(operstack.peek() != '(') numstack.push(calculate(numstack, operstack));
+                operstack.pop();//弹出左括号
+            }else numstack.push(Character.getNumericValue(c));
         }
-        calculate(numStack,operatorStack);
-        return numStack.pop();
-   }
+        while (!operstack.isEmpty()) numstack.push(calculate(numstack, operstack));
+        return numstack.pop();
+    }
 
-   private static void calculate(Stack<Integer> numStack, Stack<Character> operatorStack ){
-       Integer right = numStack.pop();
-       Integer left = numStack.pop();
-       Character operator = operatorStack.pop();
-       switch(operator){
-           case ('+'): numStack.push(left + right);
-           case ('-'): numStack.push(left - right);
-           case ('*'): numStack.push(left * right);
-           default : numStack.push(left / right);
-       }
-   }
+    private static boolean isOperator(char c) {
+        return c == '+' || c == '-' || c == '*' ||c == '/';
+    }
+
+    private static int calculate(Stack<Integer> numStack, Stack<Character> operStack){
+        int right = numStack.pop();
+        char c = operStack.pop();
+        switch (c) {
+            case ('+'):
+                return numStack.pop() + right;
+            case ('-'):
+                return numStack.pop() - right;
+            case ('*'):
+                return numStack.pop() * right;
+            default :
+                return numStack.pop() / right;
+        }
+    }
 
 }
