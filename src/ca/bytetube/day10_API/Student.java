@@ -1,6 +1,7 @@
 package ca.bytetube.day10_API;
 
 public class Student {
+    //member variable/attribute
     private String name;
     private int age;
 
